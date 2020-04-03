@@ -2,14 +2,12 @@
 body {
   margin: 0;
   padding: 2.5rem;
-  background-image: url('./bg2.png');
-  background-repeat: repeat;
-  background-color: #fff3E6;
+  background-color: #fcf8f5;
   font-family: 'Nunito', sans-serif;
 }
 
 a {
-  color: #15c6e0;
+  color: #E65FA3;
   text-decoration: none;
   transition: all 0.2s ease-out;
   -webkit-transition: all 0.2s ease-out;
@@ -181,26 +179,26 @@ align-items: flex-start;
 .tabMenu button {
   background-color: #fff;
   border-width: 1px 1px 0 1px;
-  border-color: #15c6e0;
+  border-color: #E65FA3;
   border-radius: 5px 5px 0 0;
   border-style: solid;
   cursor: pointer;
   outline: none;
   padding: 5px 14px;
   margin-right: 5px;
-  color: #15c6e0;
+  color: #E65FA3;
   transition: all 0.1s;
   -webkit-transition: all 0.1s;
   -moz-transition: all 0.1s;
 }
 
 div.tabMenu button:hover {
-  background-color: #15c6e0;
+  background-color: #E65FA3;
   color: #fff;
 }
 
 div.tabMenu button.active {
-  background-color: #15c6e0;
+  background-color: #E65FA3;
   color: #fff;
 }
 
@@ -218,7 +216,7 @@ div.tabMenu button.active {
 
 textarea {
   box-sizing: border-box;
-  border: 1px solid #15c6e0;
+  border: 1px solid #E65FA3;
   resize: none;
 }
 
@@ -226,7 +224,7 @@ textarea {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  border: 1px solid #15c6e0;
+  border: 1px solid #E65FA3;
   background-color: #fff;
 }
 
@@ -293,7 +291,7 @@ margin-bottom: 1rem;
 }
 
 #btnArea #convertBtn{
-  background-color: #15c6e0;
+  background-color: #E65FA3;
   box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid;
@@ -305,7 +303,7 @@ margin-bottom: 1rem;
   box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid;
-  color: #15c6e0;
+  color: #E65FA3;
 }
 
 @media (max-width: 55em) { /*half-screen window*/
@@ -348,20 +346,20 @@ margin-bottom: 1rem;
 }
 
 h2 {
-  color: #15c6e0;
+  color: #E65FA3;
   font-size: 2rem;
   text-transform: uppercase;
   margin-top: 0;
 }
 
 h3 {
-  color: #15c6e0;
+  color: #E65FA3;
   font-size: 1.5rem;
   text-transform: uppercase;
 }
 
 blockquote {
-  border-left: 1px solid #15c6e0;
+  border-left: 1px solid #E65FA3;
   padding: 0.5em 1em;
 
 }
