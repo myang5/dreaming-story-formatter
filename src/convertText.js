@@ -56,19 +56,21 @@ function convertText() {
 
 `;
   const dialogueCode =
-    `}}{{NAME|Dialogue=
-`;
+    `}}{{NAME|Dialogue=`;
 
   const imageCode =
     `}}{{Story Image|Image=VALUE
+
 `;
 
   const locationCode =
     `}}{{Location|Location=VALUE
+
 `;
 
   const chapterCode =
     `}}{{Chapter Divider|Chapter=VALUE
+      
 `;
 
   const footerCode =

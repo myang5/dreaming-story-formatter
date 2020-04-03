@@ -39,7 +39,7 @@ class Main extends React.Component {
     this.state = {
       input: "<p>If this is your first time using the formatter, please check the <a href='./howto.html'>Text Guidelines</a> to make sure your text is ready.</p>",
       details: {},
-      tlNotes: '',
+      tlNotes: "<p>If this is your first time using the formatter, please check the <a href='./howto.html#tlNotesSection'>Text Guidelines</a> for how to add translation notes.</p>",
       output: '',
     }
     this.inputEditor = (
@@ -56,6 +56,20 @@ class Main extends React.Component {
         }}
       />
     )
+    this.tlNotesEditor = (
+      <CKEditor
+        editor={BalloonEditor}
+        config={tlNotesEditorConfig}
+        data={this.state.tlNotes}
+        id='tlEditor'
+        spellcheck={false}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          //console.log({ event, editor, data });
+          this.setState({ tlNotes: data });
+        }}
+      />
+    )
   }
 
   // convertText() {
@@ -66,7 +80,7 @@ class Main extends React.Component {
   render() {
     return (
       <div className='main'>
-        <Input inputEditor={this.inputEditor}/>
+        <Input inputEditor={this.inputEditor} tlNotesEditor={this.tlNotesEditor} />
         <Buttons convert={this.convertText} />
         <Output value={this.state.output} />
       </div>
@@ -103,9 +117,9 @@ class Input extends React.Component {
     return (
       <div id='input'>
         <TabMenu tabs={Object.keys(this.state.tabLinks)} clicked={this.state.clicked} openTab={this.openTab} />
-        <InputArea inputEditor={this.props.inputEditor}/>
+        <InputArea inputEditor={this.props.inputEditor} />
         <DetailArea />
-        <TlArea />
+        <TlArea tlNotesEditor={this.props.tlNotesEditor} />
       </div>
     )
   }
@@ -196,30 +210,8 @@ function DetailRow(props) {
 }
 
 class TlArea extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      value: "<p>If this is your first time using the formatter, please check the <a href='./howto.html#tlNotesSection'>Text Guidelines</a> for how to add translation notes.</p>"
-    }
-  }
-
   render() {
-
-    const content = (
-      <CKEditor
-        editor={BalloonEditor}
-        config={tlNotesEditorConfig}
-        data={this.state.value}
-        id='tlEditor'
-        spellcheck={false}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          //console.log({ event, editor, data });
-          this.setState({ value: data });
-        }}
-      />
-    )
-    return <TabContent id={'tlArea'} content={content} />
+    return <TabContent id={'tlArea'} content={this.props.tlNotesEditor} />
   }
 }
 
