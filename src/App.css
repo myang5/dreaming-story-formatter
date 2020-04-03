@@ -1,0 +1,371 @@
+/*---------------------------------ALL PAGES----------------------------------*/
+body {
+  margin: 0;
+  padding: 2.5rem;
+  background-image: url('./bg2.png');
+  background-repeat: repeat;
+  background-color: #fff3E6;
+  font-family: 'Nunito', sans-serif;
+}
+
+a {
+  color: #15c6e0;
+  text-decoration: none;
+  transition: all 0.2s ease-out;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+}
+
+a:hover {
+  opacity: 0.2;
+}
+
+header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header .horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+header a {
+  position: relative;
+  padding: 1px;
+  background-clip: padding-box;
+  transition: all 0.4s ease-out;
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+}
+
+header h1 a:hover {
+  padding-right: 35px; /* roughly size of :after? */
+  opacity: 1;
+}
+
+header h1 a:after {
+  content: '★';
+  position: absolute;
+  opacity: 0;
+  top: -0.04em;
+  right: -0.5em;
+  transition: 0.4s ease-out;
+  transform: rotate(-90deg);
+}
+
+header h1 a:hover:after {
+  opacity: 1;
+  right: 0;
+  transform: rotate(0deg);
+}
+
+header p {
+  font-size: 0.875rem;
+  max-width: 25rem;
+  text-align: right;
+  margin: 0;
+}
+
+#navbar {
+  padding-left: 1rem;
+  margin: 0;
+  vertical-align: top;
+}
+
+#navbar li {
+  text-align: left;
+  list-style-type: none;
+}
+
+#navbar a {
+  font-size: 1rem;
+}
+
+#navbar a:hover {
+  opacity: 1;
+}
+
+#navbar a:after {
+  content: '☆';
+  position: absolute;
+  opacity: 0;
+  top: -0.0625em;
+  right: -0.375em;
+  transition: 0.4s ease-out;
+  transform: rotate(-90deg);
+}
+
+#navbar a:hover:after {
+  opacity: 1;
+  right: -0.875em;
+  transform: rotate(0deg);
+}
+
+p, li, blockquote {
+  font-size: 0.875rem;
+}
+
+li {
+  margin: 0.25em 0;
+}
+
+@media (min-width: 20em) {
+  body {
+      padding: 2rem;
+  }
+}
+
+/* editing position of star after title */
+@media (min-width: 25em) and (max-width: 40.5em) {
+  header h1 a:after {
+      top: 1.33em;   
+  }
+}
+
+@media (max-width: 25em) {
+  header h1 a:after {
+      top: 2.7em;   
+  }
+}
+
+/* resize header */
+@media (max-width: 38em) { 
+  header .horizontal {
+      flex-direction: column;
+  }
+
+  header p {
+      text-align: center;
+  }
+
+  #navbar {
+      padding-left: 0;
+  }
+
+  #navbar li{
+      display: inline-block;
+      margin: 1em;
+      text-align: center;
+  }
+}
+
+@media (max-width: 30em) {
+  #navbar li{
+      display: list-item;
+      margin: auto;
+  }
+
+  #navbar {
+      margin-top: 0.5rem;
+  }
+}
+
+/*---------------------------------INDEX.HTML---------------------------------*/
+
+.main {
+max-width: 100rem;
+display: flex;
+justify-content: center;
+align-items: flex-start;
+}
+
+.tabMenu button {
+  background-color: #fff;
+  border-width: 1px 1px 0 1px;
+  border-color: #15c6e0;
+  border-radius: 5px 5px 0 0;
+  border-style: solid;
+  cursor: pointer;
+  outline: none;
+  padding: 5px 14px;
+  margin-right: 5px;
+  color: #15c6e0;
+  transition: all 0.1s;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+}
+
+div.tabMenu button:hover {
+  background-color: #15c6e0;
+  color: #fff;
+}
+
+div.tabMenu button.active {
+  background-color: #15c6e0;
+  color: #fff;
+}
+
+#input, #output {
+  width: 45%;
+  min-width: 21.5rem;
+  max-width: 31.25rem;
+  height: 31.25rem;
+  margin: 0 1rem;
+}
+
+#output {
+  margin-top: 26.5px;
+}
+
+textarea {
+  box-sizing: border-box;
+  border: 1px solid #15c6e0;
+  resize: none;
+}
+
+.tabcontent {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid #15c6e0;
+  background-color: #fff;
+}
+
+.spacer {
+  display: inline-block;
+  text-align: right; 
+  padding-right: 0.7rem;
+}
+
+.tabcontent .row {
+  margin-bottom: 0.7rem;
+}
+
+#detailArea {
+  padding:20px 20px 0px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#detailArea h3 {
+margin-top: 0;
+margin-bottom: 1rem;
+}
+
+#detailArea .spacer {
+  display: inline-block;
+  width: 6.3rem;
+}
+
+#detailArea label[for='tlLink'] {
+  display: inline-block;
+  text-align: left; 
+  width: auto;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+#detailArea input{
+  width: calc(80% - 6.3rem - 0.7rem); /* - must be surrounded by whitespace */
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+#btnArea{
+  display: flex;
+  flex-direction: column;
+  margin: 26.5px 0 0 0;
+}
+
+#btnArea button{
+  width: 8.7em;
+  cursor: pointer;
+  outline: none;
+  font-size: 1rem;
+  margin: 0 0 1em 0;
+  padding: 0.7em 1.4em;
+  transition: all 0.1s ;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+}
+
+#btnArea button:active {
+  transform: scale(0.9);
+}
+
+#btnArea #convertBtn{
+  background-color: #15c6e0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid;
+  color: #fff;
+}
+
+#btnArea #copyBtn{
+  background-color: #fff;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid;
+  color: #15c6e0;
+}
+
+@media (max-width: 55em) { /*half-screen window*/
+  .main {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  #convert {
+      margin: 2rem 0 0 0;
+  }
+
+  #input, #output {
+      margin-top: 2rem;
+      width: 90%;
+      min-width: 21.5rem;
+      max-width: 49rem;
+      height: 31.25rem;
+      margin: 1rem;
+  }
+  #btnArea{
+      margin: 0 0 0 0;
+      flex-direction: row;
+  }
+
+  #btnArea button{
+      margin: 26.5px 0.5em 0 0.5em;
+  }
+
+}
+
+/*---------------------------------HOWTO.HTML AND PLANS.HTML---------------------------------*/
+#container {
+  box-sizing: border-box;
+  width: 80%;
+  background-color: #fff;
+  padding: 2.5rem;
+  margin: 1rem auto;
+  border-radius: 5px;
+}
+
+h2 {
+  color: #15c6e0;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-top: 0;
+}
+
+h3 {
+  color: #15c6e0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+blockquote {
+  border-left: 1px solid #15c6e0;
+  padding: 0.5em 1em;
+
+}
+
+img {
+width: 30.125rem;
+}
