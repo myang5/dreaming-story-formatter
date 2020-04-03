@@ -1,6 +1,27 @@
 import React from 'react';
 import Header from './Header.js';
+
+import CKEditor from '@ckeditor/ckeditor5-react';
+import BalloonEditor from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor.js';
+import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
+import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
+import Link from '@ckeditor/ckeditor5-link/src/link.js';
+import List from '@ckeditor/ckeditor5-list/src/list.js';
+import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
+import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
+import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
+
 // import convertText from './convertText.js'
+
+const inputEditorConfig = {
+  plugins: [Bold, Italic, Link, PasteFromOffice, Essentials, Paragraph],
+  toolbar: ['bold', 'italic', 'link', '|', 'undo', 'redo']
+};
+
+const tlNotesEditorConfig = {
+  plugins: [Bold, Italic, Link, List, PasteFromOffice, Essentials, Paragraph],
+  toolbar: ['bold', 'italic', 'link', 'numberedList', '|', 'undo', 'redo']
+};
 
 function Index() {
   return (
@@ -37,7 +58,7 @@ class Input extends React.Component {
 
   openTab(tab) {
     const area = '#' + this.state.tabLinks[tab]
-    console.log(tab, area);
+    // console.log(tab, area);
     const tabcontent = document.querySelectorAll('.tabcontent');
     for (let i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = 'none';
@@ -102,12 +123,26 @@ class TabContent extends React.Component {
 }
 
 class InputArea extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "<p>If this is your first time using the formatter, please check the <a href='./howto.html'>Text Guidelines</a> to make sure your text is ready.</p>"
+    }
+  }
   render() {
     const content = (
-      <div id='inputEditor' className='editor'>
-        <p>If this is your first time using the formatter, please check the <a href='./howto.html'>Text Guidelines</a> to make sure your text is ready.</p>
-        <p>UPDATE: Header images, CGs, and scene change headings can now be included. Please check Text Guidelines for more info.</p>
-      </div>
+      <CKEditor
+        editor={BalloonEditor}
+        config={inputEditorConfig}
+        data={this.state.value}
+        id='inputEditor'
+        spellcheck={false}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          //console.log({ event, editor, data });
+          this.setState({ value: data });
+        }}
+      />
     )
     return <TabContent id={'inputArea'} content={content} />
   }
@@ -149,11 +184,28 @@ function DetailRow(props) {
 }
 
 class TlArea extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: "<p>If this is your first time using the formatter, please check the <a href='./howto.html#tlNotesSection'>Text Guidelines</a> for how to add translation notes.</p>"
+    }
+  }
+
   render() {
+
     const content = (
-      <div id='tlEditor' className='editor'>
-        <p>If this is your first time using the formatter, please check the <a href='./howto.html#tlNotesSection'>Text Guidelines</a> for how to add translation notes.</p>
-      </div>
+      <CKEditor
+        editor={BalloonEditor}
+        config={tlNotesEditorConfig}
+        data={this.state.value}
+        id='tlEditor'
+        spellcheck={false}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          //console.log({ event, editor, data });
+          this.setState({ value: data });
+        }}
+      />
     )
     return <TabContent id={'tlArea'} content={content} />
   }
@@ -184,7 +236,7 @@ class Buttons extends React.Component {
   }
 }
 
-function ActionButton(props){
+function ActionButton(props) {
   return (
     <button onClick={props.onClick} id={props.id}>{props.text}</button>
   )
