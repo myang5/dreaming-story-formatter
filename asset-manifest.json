@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/dreaming-wiki-formatter/static/css/main.5db26caf.chunk.css",
+    "main.js": "/dreaming-wiki-formatter/static/js/main.4e1bfec4.chunk.js",
+    "main.js.map": "/dreaming-wiki-formatter/static/js/main.4e1bfec4.chunk.js.map",
+    "runtime-main.js": "/dreaming-wiki-formatter/static/js/runtime-main.f16b5ede.js",
+    "runtime-main.js.map": "/dreaming-wiki-formatter/static/js/runtime-main.f16b5ede.js.map",
+    "static/js/2.b4b46604.chunk.js": "/dreaming-wiki-formatter/static/js/2.b4b46604.chunk.js",
+    "static/js/2.b4b46604.chunk.js.map": "/dreaming-wiki-formatter/static/js/2.b4b46604.chunk.js.map",
+    "index.html": "/dreaming-wiki-formatter/index.html",
+    "precache-manifest.b118736ccdad10448efc8685ff3d68f1.js": "/dreaming-wiki-formatter/precache-manifest.b118736ccdad10448efc8685ff3d68f1.js",
+    "service-worker.js": "/dreaming-wiki-formatter/service-worker.js",
+    "static/css/main.5db26caf.chunk.css.map": "/dreaming-wiki-formatter/static/css/main.5db26caf.chunk.css.map",
+    "static/js/2.b4b46604.chunk.js.LICENSE.txt": "/dreaming-wiki-formatter/static/js/2.b4b46604.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f16b5ede.js",
+    "static/js/2.b4b46604.chunk.js",
+    "static/css/main.5db26caf.chunk.css",
+    "static/js/main.4e1bfec4.chunk.js"
+  ]
+}
