@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/dreaming-wiki-formatter/static/css/main.5db26caf.chunk.css",
-    "main.js": "/dreaming-wiki-formatter/static/js/main.4e1bfec4.chunk.js",
-    "main.js.map": "/dreaming-wiki-formatter/static/js/main.4e1bfec4.chunk.js.map",
-    "runtime-main.js": "/dreaming-wiki-formatter/static/js/runtime-main.f16b5ede.js",
-    "runtime-main.js.map": "/dreaming-wiki-formatter/static/js/runtime-main.f16b5ede.js.map",
-    "static/js/2.b4b46604.chunk.js": "/dreaming-wiki-formatter/static/js/2.b4b46604.chunk.js",
-    "static/js/2.b4b46604.chunk.js.map": "/dreaming-wiki-formatter/static/js/2.b4b46604.chunk.js.map",
-    "index.html": "/dreaming-wiki-formatter/index.html",
-    "precache-manifest.b118736ccdad10448efc8685ff3d68f1.js": "/dreaming-wiki-formatter/precache-manifest.b118736ccdad10448efc8685ff3d68f1.js",
-    "service-worker.js": "/dreaming-wiki-formatter/service-worker.js",
-    "static/css/main.5db26caf.chunk.css.map": "/dreaming-wiki-formatter/static/css/main.5db26caf.chunk.css.map",
-    "static/js/2.b4b46604.chunk.js.LICENSE.txt": "/dreaming-wiki-formatter/static/js/2.b4b46604.chunk.js.LICENSE.txt"
+    "main.css": "/dreaming-story-formatter/static/css/main.04670fe5.chunk.css",
+    "main.js": "/dreaming-story-formatter/static/js/main.3ac526ff.chunk.js",
+    "main.js.map": "/dreaming-story-formatter/static/js/main.3ac526ff.chunk.js.map",
+    "runtime-main.js": "/dreaming-story-formatter/static/js/runtime-main.7a623ee0.js",
+    "runtime-main.js.map": "/dreaming-story-formatter/static/js/runtime-main.7a623ee0.js.map",
+    "static/js/2.e4cba9ca.chunk.js": "/dreaming-story-formatter/static/js/2.e4cba9ca.chunk.js",
+    "static/js/2.e4cba9ca.chunk.js.map": "/dreaming-story-formatter/static/js/2.e4cba9ca.chunk.js.map",
+    "index.html": "/dreaming-story-formatter/index.html",
+    "precache-manifest.0bb132d563dcc7209e7e99289fa3ce49.js": "/dreaming-story-formatter/precache-manifest.0bb132d563dcc7209e7e99289fa3ce49.js",
+    "service-worker.js": "/dreaming-story-formatter/service-worker.js",
+    "static/css/main.04670fe5.chunk.css.map": "/dreaming-story-formatter/static/css/main.04670fe5.chunk.css.map",
+    "static/js/2.e4cba9ca.chunk.js.LICENSE.txt": "/dreaming-story-formatter/static/js/2.e4cba9ca.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.f16b5ede.js",
-    "static/js/2.b4b46604.chunk.js",
-    "static/css/main.5db26caf.chunk.css",
-    "static/js/main.4e1bfec4.chunk.js"
+    "static/js/runtime-main.7a623ee0.js",
+    "static/js/2.e4cba9ca.chunk.js",
+    "static/css/main.04670fe5.chunk.css",
+    "static/js/main.3ac526ff.chunk.js"
   ]
 }
