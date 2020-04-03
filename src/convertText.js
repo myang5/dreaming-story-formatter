@@ -1,3 +1,28 @@
+const namesOfficial =[
+  'YUMA',
+  'YANAGI',
+  'TOUJI',
+  'SHION',
+  'SHINYA',
+  'SHIGURE',
+  'ISSEI',
+  'MIKAGE',
+  'SENRI',
+  'TAKAOMI',
+  'JIN',
+  'CHIZURU',
+  'KASUKA',
+  'MINATO',
+  'YUNI',
+  'RINTARO',
+  'KIRITANI',
+  'SARUWATARI',
+  'INOH',
+  'MAMORU',
+  'DYLAN',
+  'JUDAH',
+]
+
 //lmao
 function convertToDom(data) {
   return new DOMParser().parseFromString(data, 'text/html');
@@ -17,94 +42,83 @@ function getTextFromDom(editorDom) {
 
 function convertText() {
 
-  const values = getValues(); //get user input from all the tabs
+  //const values = getValues(); //get user input from all the tabs
 
   //format wiki code with user input
   const headerCode =
-`{{Story Header
+    `{{Story Header
 |Title=         
 |Image=         
 |Source=        
 |TranslatorURL= 
 |TranslatorName=
 |Chapter=       
-}}
+
 `;
   const dialogueCode =
-`{{NAME|
-Dialogue=
-}}
+    `}}{{NAME|Dialogue=
 `;
 
   const imageCode =
-`{{Story Image|
-Image=VALUE
-}}
+    `}}{{Story Image|Image=VALUE
 `;
 
-const locationCode =
-`{{Location|
-Location=VALUE
-}}
+  const locationCode =
+    `}}{{Location|Location=VALUE
 `;
 
-const chapterCode =
-`{{Chapter Divider|
-Chapter=VALUE
-}}
+  const chapterCode =
+    `}}{{Chapter Divider|Chapter=VALUE
 `;
 
   const footerCode =
-`{{Story Footer
+    `}}{{Story Footer
 |Prev=          
 |Next=          
 }}`
 
-  let inputDom = formatStyling(convertToDom(editor1.getData()));
+  let inputDom = formatStyling(convertToDom(this.state.input));
   let input = getTextFromDom(inputDom);
-  let output = header;
+  let output = headerCode;
 
   let currentName = ''; //needed for case where dialogue has name on every line
   input.forEach(function (line) {
     if (line != '') { //ignore empty lines
+      console.log('analyzing line: ' + line);
       if (isFileName(line)) {
-        //console.log('isFileName: true...');
-        //alert user if there is no header
-        if (input.indexOf(line) === 0) { //if image file for the header 
-          //console.log('headerfile');
-          output = output.replace("HEADERFILE", line.trim());
-        }
-        else { //if CG or scene change image file
-          //console.log('image file');
-          let cgCode = cgRender;
-          output += cgCode.replace("FILENAME", line.trim());
-          currentName = ''; //since its new section
-        }
+        console.log('isFileName: true...');
+        //if CG or scene change image file
+        //console.log('image file');
+        output += imageCode.replace('VALUE', formatFileName(line));
+        currentName = ''; //since its new section
+
       }
       else { //if dialogue line or header
-        line = formatTlMarker(line);
+        //line = formatTlMarker(line);
         let firstWord = line.split(" ")[0];
         if (!firstWord.includes(":")) { //if no colon --> continuing dialogue line
-          //console.log('no colon, continue dialogue');
+          console.log('no colon, continue dialogue');
           output += line + "\n\n";
         }
         else {
-          //console.log('has colon...')
+          console.log('has colon...')
           firstWord = firstWord.slice(0, -1); //remove colon
-          if (firstWord.toUpperCase() === 'HEADING') { //if heading
-            //console.log('new HEADING');
-            let headingCode = heading;
-            output += headingCode.replace("HEADING", line.slice(line.indexOf(':') + 1).trim());
+          if (firstWord.toUpperCase() === 'LOCATION') { //if heading
+            console.log('new LOCATION');
+            output += locationCode.replace('VALUE', line.slice(line.indexOf(':') + 1).trim());
             currentName = ''; //since its new section
           }
-          else if (namesLink[firstWord.toUpperCase()] != undefined) { //if valid character is speaking
-            //console.log('character speaking... ' + firstWord);
+          else if (firstWord.toUpperCase() === 'CHAPTER') { //if heading
+            console.log('new CHAPTER');
+            output += chapterCode.replace('VALUE', line.slice(line.indexOf(':') + 1).trim());
+            currentName = ''; //since its new section
+          }
+          else if (!namesOfficial.includes(firstWord)) { //if valid character is speaking
+            console.log('character speaking... ' + firstWord);
             if (firstWord !== currentName) { //if new character is speaking
-              //console.log('new character detected')
+              console.log('new character detected')
               //add dialogueRender code to output
-              let renderCode = dialogueRender;
-              let id = "#" + firstWord[0].toUpperCase() + firstWord.slice(1, firstWord.length); //create id to access chara's render file in Renders tab
-              output += renderCode.replace("FILENAME", document.querySelector(id).value.trim());
+              output += dialogueCode.replace('NAME', firstWord);
               //update currentName
               currentName = firstWord;
             }
@@ -120,9 +134,9 @@ Chapter=VALUE
 
   });
 
-  output += formatTlNotes(editor2.getData());
-  output += footer;
-  document.querySelector('#output').value = output;
+  //output += formatTlNotes(this.state.tlNotes);
+  output += footerCode;
+  this.setState({output: output});
 }
 
 //helper function for convertText
@@ -159,6 +173,20 @@ function isFileName(line) {
   return false;
 }
 
+//helper function to remove file extension if it exists
+//params: line - a String
+//returns a String with extension removed
+function formatFileName(line) {
+  line = line.trim();
+  const extensions = ['.png', '.gif', '.jpg', '.jpeg', '.ico', '.pdf', '.svg'];
+  for (let i = 0; i < extensions.length; i++) {
+    if (line.toLowerCase().endsWith(extensions[i])) {
+      return line.replace(extensions[i], '');
+    }
+  }
+  return line;
+}
+
 //helper function to format bold, italics, links based on HTML tags
 //params: editorDom - editor data already converted to DOM object
 //returns a DOM object with specified HTML tags converted to wiki code equivalent
@@ -178,7 +206,7 @@ function formatStyling(editorDom) {
 //helper function to format tl note markers
 function formatTlMarker(line) {
   if (line.search(/\[\d+\]/) != -1) { //if there is a tlMarker
-    let title = getChapTitle(editor2.getData());
+    let title = getChapTitle(this.state.tlNotes);
     if (title != undefined) {
       let tlCode = `<span id='${title}RefNUM'>[[#${title}NoteNUM|<sup>[NUM]</sup>]]</span>`;
       const markers = line.match(/\[\d+\]/g);
@@ -211,9 +239,9 @@ function getChapTitle(data) {
 //helper function to format TlNotes
 //assumes that there is a valid title and correct number of TL notes
 function formatTlNotes() {
-  let title = getChapTitle(editor2.getData()); //ERROR: only do this if there are tl notes available
+  let title = getChapTitle(this.state.tlNotes); //ERROR: only do this if there are tl notes available
   if (title != undefined) {
-    let inputDom = formatStyling(convertToDom(editor2.getData()));
+    let inputDom = formatStyling(convertToDom(this.state.tlNotes));
     let notes = []
     const listItems = inputDom.querySelectorAll('li');
     listItems.forEach(function (li) {

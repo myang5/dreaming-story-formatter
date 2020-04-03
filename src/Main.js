@@ -11,7 +11,7 @@ import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefrom
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 
-// import convertText from './convertText.js'
+import convertText from './convertText.js'
 
 const inputEditorConfig = {
   plugins: [Bold, Italic, Link, PasteFromOffice, Essentials, Paragraph],
@@ -32,14 +32,46 @@ function Index() {
   );
 }
 
-function Main() {
-  return (
-    <div className='main'>
-      <Input />
-      <Buttons />
-      <Output />
-    </div>
-  )
+class Main extends React.Component {
+  constructor(props) {
+    super(props);
+    this.convertText = convertText.bind(this);
+    this.state = {
+      input: "<p>If this is your first time using the formatter, please check the <a href='./howto.html'>Text Guidelines</a> to make sure your text is ready.</p>",
+      details: {},
+      tlNotes: '',
+      output: '',
+    }
+    this.inputEditor = (
+      <CKEditor
+        editor={BalloonEditor}
+        config={inputEditorConfig}
+        data={this.state.input}
+        id='inputEditor'
+        spellcheck={false}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          //console.log({ event, editor, data });
+          this.setState({ input: data });
+        }}
+      />
+    )
+  }
+
+  // convertText() {
+  //   //this.setState((state) => ({output: state.input}));
+  //   convertText();
+  // }
+
+  render() {
+    return (
+      <div className='main'>
+        <Input inputEditor={this.inputEditor}/>
+        <Buttons convert={this.convertText} />
+        <Output value={this.state.output} />
+      </div>
+    )
+  }
 }
 
 class Input extends React.Component {
@@ -71,7 +103,7 @@ class Input extends React.Component {
     return (
       <div id='input'>
         <TabMenu tabs={Object.keys(this.state.tabLinks)} clicked={this.state.clicked} openTab={this.openTab} />
-        <InputArea />
+        <InputArea inputEditor={this.props.inputEditor}/>
         <DetailArea />
         <TlArea />
       </div>
@@ -123,28 +155,8 @@ class TabContent extends React.Component {
 }
 
 class InputArea extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: "<p>If this is your first time using the formatter, please check the <a href='./howto.html'>Text Guidelines</a> to make sure your text is ready.</p>"
-    }
-  }
   render() {
-    const content = (
-      <CKEditor
-        editor={BalloonEditor}
-        config={inputEditorConfig}
-        data={this.state.value}
-        id='inputEditor'
-        spellcheck={false}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          //console.log({ event, editor, data });
-          this.setState({ value: data });
-        }}
-      />
-    )
-    return <TabContent id={'inputArea'} content={content} />
+    return <TabContent id={'inputArea'} content={this.props.inputEditor} />
   }
 }
 
@@ -229,7 +241,7 @@ class Buttons extends React.Component {
   render() {
     return (
       <div id='btnArea'>
-        <ActionButton onClick={() => console.log('convert text')} id='convertBtn' text='CONVERT' />
+        <ActionButton onClick={this.props.convert} id='convertBtn' text='CONVERT' />
         <ActionButton onClick={this.copyToClip} id='copyBtn' text={this.state.copied ? 'Copied' : 'Copy Output'} />
       </div>
     )
@@ -243,7 +255,7 @@ function ActionButton(props) {
 }
 
 function Output(props) {
-  return <textarea id='output'></textarea>
+  return <textarea id='output' defaultValue={props.value}></textarea>
 }
 
 
