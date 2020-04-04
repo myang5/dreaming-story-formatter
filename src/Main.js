@@ -67,7 +67,6 @@ class Main extends React.Component {
         spellcheck='false'
         onChange={(event, editor) => {
           const data = editor.getData();
-          //console.log({ event, editor, data });
           this.setState({ input: data });
         }}
       />
@@ -81,7 +80,6 @@ class Main extends React.Component {
         spellcheck={false}
         onChange={(event, editor) => {
           const data = editor.getData();
-          //console.log({ event, editor, data });
           this.setState({ tlNotes: data });
         }}
       />

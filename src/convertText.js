@@ -99,9 +99,9 @@ function convertText() {
   let currentName = ''; //needed for case where dialogue has name on every line
   input.forEach(function (line) {
     if (line != '') { //ignore empty lines
-      console.log('analyzing line: ' + line);
+      //console.log('analyzing line: ' + line);
       if (isFileName(line)) {
-        console.log('isFileName: true...');
+        //console.log('isFileName: true...');
         //if CG or scene change image file
         //console.log('image file');
         output += imageCode.replace('VALUE', formatFileName(line));
@@ -111,26 +111,26 @@ function convertText() {
       else { //if dialogue line or header
         let firstWord = line.split(" ")[0];
         if (!firstWord.includes(":")) { //if no colon --> continuing dialogue line
-          console.log('no colon, continue dialogue');
+          //console.log('no colon, continue dialogue');
           output += line + "\n\n";
         }
         else {
-          console.log('has colon...')
+          //console.log('has colon...')
           firstWord = firstWord.slice(0, -1); //remove colon
           if (firstWord.toUpperCase() === 'LOCATION') { //if heading
-            console.log('new LOCATION');
+            //console.log('new LOCATION');
             output += locationCode.replace('VALUE', getTextAfterColon(line));
             currentName = ''; //since its new section
           }
           else if (firstWord.toUpperCase() === 'CHAPTER') { //if heading
-            console.log('new CHAPTER');
+            //console.log('new CHAPTER');
             output += chapterCode.replace('VALUE', getTextAfterColon(line));
             currentName = ''; //since its new section
           }
           else { //if character is speaking
-            console.log('character speaking... ' + firstWord);
+            //console.log('character speaking... ' + firstWord);
             if (firstWord != currentName) { //if new character is speaking
-              console.log('new character detected')
+              //console.log('new character detected')
               //add dialogueRender code to output
               let code = namesOfficial.includes(firstWord.toUpperCase()) ? charaCode : npcCode;
               output += code.replace('VALUE', capitalizeFirstLetter(firstWord));
