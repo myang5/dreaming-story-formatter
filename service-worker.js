@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/dreaming-story-formatter/precache-manifest.3a5eb3e6e3f84de36cde0f494e28a326.js"
+  "/dreaming-story-formatter/precache-manifest.0188c1edadd751c3281775333dae58dd.js"
 );
 
 self.addEventListener('message', (event) => {

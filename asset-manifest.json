@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/dreaming-story-formatter/static/css/main.33a22ea4.chunk.css",
-    "main.js": "/dreaming-story-formatter/static/js/main.d5e3a346.chunk.js",
-    "main.js.map": "/dreaming-story-formatter/static/js/main.d5e3a346.chunk.js.map",
+    "main.js": "/dreaming-story-formatter/static/js/main.eb8d638b.chunk.js",
+    "main.js.map": "/dreaming-story-formatter/static/js/main.eb8d638b.chunk.js.map",
     "runtime-main.js": "/dreaming-story-formatter/static/js/runtime-main.7a623ee0.js",
     "runtime-main.js.map": "/dreaming-story-formatter/static/js/runtime-main.7a623ee0.js.map",
     "static/js/2.70d2ba00.chunk.js": "/dreaming-story-formatter/static/js/2.70d2ba00.chunk.js",
     "static/js/2.70d2ba00.chunk.js.map": "/dreaming-story-formatter/static/js/2.70d2ba00.chunk.js.map",
     "index.html": "/dreaming-story-formatter/index.html",
-    "precache-manifest.3a5eb3e6e3f84de36cde0f494e28a326.js": "/dreaming-story-formatter/precache-manifest.3a5eb3e6e3f84de36cde0f494e28a326.js",
+    "precache-manifest.0188c1edadd751c3281775333dae58dd.js": "/dreaming-story-formatter/precache-manifest.0188c1edadd751c3281775333dae58dd.js",
     "service-worker.js": "/dreaming-story-formatter/service-worker.js",
     "static/css/main.33a22ea4.chunk.css.map": "/dreaming-story-formatter/static/css/main.33a22ea4.chunk.css.map",
     "static/js/2.70d2ba00.chunk.js.LICENSE.txt": "/dreaming-story-formatter/static/js/2.70d2ba00.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.7a623ee0.js",
     "static/js/2.70d2ba00.chunk.js",
     "static/css/main.33a22ea4.chunk.css",
-    "static/js/main.d5e3a346.chunk.js"
+    "static/js/main.eb8d638b.chunk.js"
   ]
 }
