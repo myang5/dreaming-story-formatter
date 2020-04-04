@@ -1,4 +1,4 @@
-const namesOfficial =[
+const namesOfficial = [
   'YUMA',
   'YANAGI',
   'TOUJI',
@@ -40,6 +40,14 @@ function getTextFromDom(editorDom) {
   return input;
 }
 
+function capitalizeFirstLetter(word) {
+  return word[0].toUpperCase() + word.slice(1, word.length);
+}
+
+function getTextAfterColon(line) {
+  return line.slice(line.indexOf(':') + 1).trim();
+}
+
 function convertText() {
 
   //const values = getValues(); //get user input from all the tabs
@@ -47,16 +55,21 @@ function convertText() {
   //format wiki code with user input
   const headerCode =
     `{{Story Header
-|Title=         
-|Image=         
-|Source=        
-|TranslatorURL= 
-|TranslatorName=
-|Chapter=       
+|Title=${this.state.details.title[2]}        
+|Image=${this.state.details.image[2]}        
+|Source=${this.state.details.source[2]}        
+|TranslatorURL=${this.state.details.tlCredit[2]} 
+|TranslatorName=${this.state.details.tlName[2]}
+|Chapter=${this.state.details.chapter[2]}       
 
 `;
-  const dialogueCode =
-    `}}{{NAME|Dialogue=`;
+  const charaCode =
+    `}}{{VALUE|Dialogue=`;
+
+  const npcCode =
+    `}}{{NPC
+|Name=VALUE
+|Dialogue=`
 
   const imageCode =
     `}}{{Story Image|Image=VALUE
@@ -74,9 +87,9 @@ function convertText() {
 `;
 
   const footerCode =
-    `}}{{Story Footer
-|Prev=          
-|Next=          
+    `{{Story Footer
+|Prev=${this.state.details.prev[2]}          
+|Next=${this.state.details.next[2]}          
 }}`
 
   let inputDom = formatStyling(convertToDom(this.state.input));
@@ -96,7 +109,6 @@ function convertText() {
 
       }
       else { //if dialogue line or header
-        //line = formatTlMarker(line);
         let firstWord = line.split(" ")[0];
         if (!firstWord.includes(":")) { //if no colon --> continuing dialogue line
           console.log('no colon, continue dialogue');
@@ -107,38 +119,38 @@ function convertText() {
           firstWord = firstWord.slice(0, -1); //remove colon
           if (firstWord.toUpperCase() === 'LOCATION') { //if heading
             console.log('new LOCATION');
-            output += locationCode.replace('VALUE', line.slice(line.indexOf(':') + 1).trim());
+            output += locationCode.replace('VALUE', getTextAfterColon(line));
             currentName = ''; //since its new section
           }
           else if (firstWord.toUpperCase() === 'CHAPTER') { //if heading
             console.log('new CHAPTER');
-            output += chapterCode.replace('VALUE', line.slice(line.indexOf(':') + 1).trim());
+            output += chapterCode.replace('VALUE', getTextAfterColon(line));
             currentName = ''; //since its new section
           }
-          else if (!namesOfficial.includes(firstWord)) { //if valid character is speaking
+          else { //if character is speaking
             console.log('character speaking... ' + firstWord);
-            if (firstWord !== currentName) { //if new character is speaking
+            if (firstWord != currentName) { //if new character is speaking
               console.log('new character detected')
               //add dialogueRender code to output
-              output += dialogueCode.replace('NAME', firstWord);
+              let code = namesOfficial.includes(firstWord.toUpperCase()) ? charaCode : npcCode;
+              output += code.replace('VALUE', capitalizeFirstLetter(firstWord));
               //update currentName
               currentName = firstWord;
             }
-            line = line.slice(line.indexOf(":") + 1).trim(); //get chara's spoken line
+            line = getTextAfterColon(line); //get chara's spoken line
             output += line + "\n\n";
-          }
-          else {
-            //console.log('Formatter was unable to process this name: ' + firstWord);
           }
         }
       }
     }
-
   });
 
-  //output += formatTlNotes(this.state.tlNotes);
+  output += '}}\n';
+  let title = getChapTitle(this.state.tlNotes);
+  output = formatTlMarker(output, title);
+  output += formatTlNotes(this.state.tlNotes, title);
   output += footerCode;
-  this.setState({output: output});
+  this.setState({ output: output });
 }
 
 //helper function for convertText
@@ -205,28 +217,10 @@ function formatStyling(editorDom) {
   return editorDom;
 }
 
-//helper function to format tl note markers
-function formatTlMarker(line) {
-  if (line.search(/\[\d+\]/) != -1) { //if there is a tlMarker
-    let title = getChapTitle(this.state.tlNotes);
-    if (title != undefined) {
-      let tlCode = `<span id='${title}RefNUM'>[[#${title}NoteNUM|<sup>[NUM]</sup>]]</span>`;
-      const markers = line.match(/\[\d+\]/g);
-      markers.forEach(function (marker) {
-        let num = marker.substring(marker.indexOf('[') + 1, marker.indexOf(']'));
-        let newTlCode = tlCode.replace(/NUM/g, num);
-        line = line.replace(marker, newTlCode)
-      });
-    }
-  }
-  return line;
-}
-
 //helper function to get and format chapter title from tl notes
 //assumes the editor has some data
 function getChapTitle(data) {
   if (data.includes('<ol>') && data.includes('<p>')) { //editor already has the <p> in it, so user must input some sort of new <p> (the chapter title) and an <ol> (the TL notes)
-    //let inputDom = clearGDocSpan(convertToDom(data).querySelector('p'));
     let inputDom = (convertToDom(data).querySelector('p'));
     let title = inputDom.innerText;
     title = title.replace(' ', '');
@@ -238,12 +232,28 @@ function getChapTitle(data) {
   }
 }
 
+//helper function to format tl note markers
+function formatTlMarker(output, title) {
+  const markerRegExp = /\[\d+\]/g;
+  if (output.search(markerRegExp) != -1) { //if there is a tlMarker
+    if (title != undefined) {
+      let tlCode = `<span id='${title}RefNUM'>[[#${title}NoteNUM|<sup>[NUM]</sup>]]</span>`;
+      const markers = output.match(markerRegExp);
+      markers.forEach(function (marker) {
+        let num = marker.substring(marker.indexOf('[') + 1, marker.indexOf(']'));
+        let newTlCode = tlCode.replace(/NUM/g, num);
+        output = output.replace(marker, newTlCode)
+      });
+    }
+  }
+  return output;
+}
+
 //helper function to format TlNotes
 //assumes that there is a valid title and correct number of TL notes
-function formatTlNotes() {
-  let title = getChapTitle(this.state.tlNotes); //ERROR: only do this if there are tl notes available
+function formatTlNotes(tlNotes, title) {
   if (title != undefined) {
-    let inputDom = formatStyling(convertToDom(this.state.tlNotes));
+    let inputDom = formatStyling(convertToDom(tlNotes));
     let notes = []
     const listItems = inputDom.querySelectorAll('li');
     listItems.forEach(function (li) {
@@ -262,6 +272,5 @@ function formatTlNotes() {
   }
   else return ''
 }
-
 
 export default convertText;

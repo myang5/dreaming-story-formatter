@@ -2,7 +2,7 @@
 body {
   margin: 0;
   padding: 2.5rem;
-  background-color: #fcf8f5;
+  background-color: #fff7fa;
   font-family: 'Nunito', sans-serif;
 }
 
@@ -228,14 +228,10 @@ textarea {
   background-color: #fff;
 }
 
-.spacer {
-  display: inline-block;
-  text-align: right; 
-  padding-right: 0.7rem;
-}
-
 .tabcontent .row {
-  margin-bottom: 0.7rem;
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: center;
 }
 
 #detailArea {
@@ -244,28 +240,25 @@ textarea {
   flex-direction: column;
 }
 
-#detailArea h3 {
-margin-top: 0;
-margin-bottom: 1rem;
+#detailArea p {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 #detailArea .spacer {
   display: inline-block;
-  width: 6.3rem;
-}
-
-#detailArea label[for='tlLink'] {
-  display: inline-block;
-  text-align: left; 
-  width: auto;
+  width: 6rem;
+  text-align: right; 
+  padding-right: 1rem;
   font-size: 0.85rem;
-  opacity: 0.8;
 }
-
+  
 #detailArea input{
-  width: calc(80% - 6.3rem - 0.7rem); /* - must be surrounded by whitespace */
+  width: calc(85% - 6rem - 0.7rem); /* - must be surrounded by whitespace */
   padding: 4px;
   box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
 }
 
 #btnArea{

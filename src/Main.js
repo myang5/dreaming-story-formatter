@@ -23,6 +23,12 @@ const tlNotesEditorConfig = {
   toolbar: ['bold', 'italic', 'link', 'numberedList', '|', 'undo', 'redo']
 };
 
+const inputTest = "<p>Senri: test</p><p>senri still speaking[1]</p><p>Location: Hallway</p><p>Chapter: Chapter 2</p><p>Senri: third line</p><p>NPC: test</p><p>NPC: still <i><strong>speaking</strong></i></p>";
+const inputDefault = "<p>If this is your first time using the formatter, please check the <a href='./howto.html'>Text Guidelines</a> to make sure your text is ready.</p>";
+
+const notesTest = "<p>Chapter 1</p><ol><li>note 1</li></ol>";
+const notesDefault = "<p>If this is your first time using the formatter, please check the <a href='./howto.html#tlNotesSection'>Text Guidelines</a> for how to add translation notes.</p>";
+
 function Index() {
   return (
     <>
@@ -36,10 +42,20 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.convertText = convertText.bind(this);
+    this.onDetailChange = this.onDetailChange.bind(this);
     this.state = {
-      input: "<p>If this is your first time using the formatter, please check the <a href='./howto.html'>Text Guidelines</a> to make sure your text is ready.</p>",
-      details: {},
-      tlNotes: "<p>If this is your first time using the formatter, please check the <a href='./howto.html#tlNotesSection'>Text Guidelines</a> for how to add translation notes.</p>",
+      input: inputTest,
+      details: { //label, placeholder, value
+        title: ['Title', '', 'Title'],
+        image: ['Header Image', '', 'Image.png'],
+        source: ['Source Story', '', 'source'],
+        tlName: ['Translator', '', 'Name'],
+        tlCredit: ['Translator Credit', '', 'http:/twitter.com'],
+        chapter: ['Chapter', '', '1'],
+        prev: ['Previous Chapter Link', '(optional)', 'prev'],
+        next: ['Next Chapter Link', '(optional)', 'next'],
+      },
+      tlNotes: notesTest,
       output: '',
     }
     this.inputEditor = (
@@ -48,7 +64,7 @@ class Main extends React.Component {
         config={inputEditorConfig}
         data={this.state.input}
         id='inputEditor'
-        spellcheck={false}
+        spellcheck='false'
         onChange={(event, editor) => {
           const data = editor.getData();
           //console.log({ event, editor, data });
@@ -70,17 +86,23 @@ class Main extends React.Component {
         }}
       />
     )
-  }
+  };
 
-  // convertText() {
-  //   //this.setState((state) => ({output: state.input}));
-  //   convertText();
-  // }
+  onDetailChange(name, value) {
+    this.setState((state, props) => {
+      const newDetails = state.details;
+      newDetails[name][2] = value;
+      return { details: newDetails };
+    });
+  }
 
   render() {
     return (
       <div className='main'>
-        <Input inputEditor={this.inputEditor} tlNotesEditor={this.tlNotesEditor} />
+        <Input inputEditor={this.inputEditor}
+          details={this.state.details}
+          onDetailChange={this.onDetailChange}
+          tlNotesEditor={this.tlNotesEditor} />
         <Buttons convert={this.convertText} />
         <Output value={this.state.output} />
       </div>
@@ -104,7 +126,6 @@ class Input extends React.Component {
 
   openTab(tab) {
     const area = '#' + this.state.tabLinks[tab]
-    // console.log(tab, area);
     const tabcontent = document.querySelectorAll('.tabcontent');
     for (let i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = 'none';
@@ -118,7 +139,7 @@ class Input extends React.Component {
       <div id='input'>
         <TabMenu tabs={Object.keys(this.state.tabLinks)} clicked={this.state.clicked} openTab={this.openTab} />
         <InputArea inputEditor={this.props.inputEditor} />
-        <DetailArea />
+        <DetailArea details={this.props.details} onDetailChange={this.props.onDetailChange} />
         <TlArea tlNotesEditor={this.props.tlNotesEditor} />
       </div>
     )
@@ -176,23 +197,21 @@ class InputArea extends React.Component {
 
 class DetailArea extends React.Component {
   render() {
+    const inputs = Object.keys(this.props.details).map((key) =>
+      <DetailRow key={key}
+      name={key}
+      label={this.props.details[key][0]}
+      placeholder={this.props.details[key][1]}
+      value={this.props.details[key][2]}
+      onDetailChange={this.props.onDetailChange}
+      />
+    );
     const content = (
       <>
         <div className='row'>
-          <h3>Story Details</h3>
+          <p>For more explanation on what each text field does, check the wiki's <a href='https://dreaminglive.fandom.com/wiki/Story_Formatting_Guide'>Story Formatting Guide</a>.</p>
         </div>
-        <DetailRow label='Title' />
-        <DetailRow label='Header Image' />
-        <DetailRow label='Source' />
-        <DetailRow label='Translator' />
-        <div className='row'>
-          <span className='spacer'></span>
-          <label className='spacer' htmlFor='tlLink'>Translator credit link</label>
-        </div>
-        <div className='row'>
-          <span className='spacer'></span>
-          <input type='text' id='tlLink' />
-        </div>
+        {inputs}
       </>
     )
     return <TabContent id={'detailArea'} content={content} />
@@ -200,11 +219,14 @@ class DetailArea extends React.Component {
 }
 
 function DetailRow(props) {
-  const id = props.label[0].toUpperCase() + props.label.slice(1, props.label.length).replace(' ', '')
   return (
     <div className='row'>
       <label className='spacer'>{props.label}</label>
-      <input type='text' id={id} />
+      <input type='text' 
+      placeholder={props.placeholder} 
+      value={props.value}
+      onChange={(event) => props.onDetailChange(props.name, event.target.value)}
+      />
     </div>
   )
 }
@@ -247,7 +269,7 @@ function ActionButton(props) {
 }
 
 function Output(props) {
-  return <textarea id='output' defaultValue={props.value}></textarea>
+  return <textarea spellCheck='false' id='output' defaultValue={props.value}></textarea>
 }
 
 
