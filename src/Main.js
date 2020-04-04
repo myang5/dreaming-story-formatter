@@ -23,10 +23,10 @@ const tlNotesEditorConfig = {
 };
 
 const inputTest = `<p>Senri: test</p><p>senri still speaking[1]</p><p>Location: Hallway</p><p>Chapter: Chapter 2</p><p>Senri: third line</p><p>NPC: test</p><p>NPC: still <i><strong>speaking</strong></i></p>`;
-const inputDefault = `<p>If this is your first time using the formatter, please check the <a href='/howto'>Text Guidelines</a> to make sure your text is ready.</p>`;
+const inputDefault = `<p>If this is your first time using the formatter, please check the <a href='#/howto'>Text Guidelines</a> to make sure your text is ready.</p>`;
 
 const notesTest = `<p>Chapter 1</p><ol><li>note 1</li></ol>`;
-const notesDefault = `<p>If this is your first time using the formatter, please check the <a href='/howto#tlNotesSection'>Text Guidelines</a> for how to add translation notes.</p>`;
+const notesDefault = `<p>If this is your first time using the formatter, please check the <a href='#/howto#tlNotesSection'>Text Guidelines</a> for how to add translation notes.</p>`;
 
 export default class Main extends React.Component {
   constructor(props) {
