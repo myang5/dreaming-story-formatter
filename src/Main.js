@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './Header.js';
 
 import CKEditor from '@ckeditor/ckeditor5-react';
 import BalloonEditor from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor.js';
@@ -23,22 +22,13 @@ const tlNotesEditorConfig = {
   toolbar: ['bold', 'italic', 'link', 'numberedList', '|', 'undo', 'redo']
 };
 
-const inputTest = "<p>Senri: test</p><p>senri still speaking[1]</p><p>Location: Hallway</p><p>Chapter: Chapter 2</p><p>Senri: third line</p><p>NPC: test</p><p>NPC: still <i><strong>speaking</strong></i></p>";
-const inputDefault = "<p>If this is your first time using the formatter, please check the <a href='./howto.html'>Text Guidelines</a> to make sure your text is ready.</p>";
+const inputTest = `<p>Senri: test</p><p>senri still speaking[1]</p><p>Location: Hallway</p><p>Chapter: Chapter 2</p><p>Senri: third line</p><p>NPC: test</p><p>NPC: still <i><strong>speaking</strong></i></p>`;
+const inputDefault = `<p>If this is your first time using the formatter, please check the <a href='/howto'>Text Guidelines</a> to make sure your text is ready.</p>`;
 
-const notesTest = "<p>Chapter 1</p><ol><li>note 1</li></ol>";
-const notesDefault = "<p>If this is your first time using the formatter, please check the <a href='./howto.html#tlNotesSection'>Text Guidelines</a> for how to add translation notes.</p>";
+const notesTest = `<p>Chapter 1</p><ol><li>note 1</li></ol>`;
+const notesDefault = `<p>If this is your first time using the formatter, please check the <a href='/howto#tlNotesSection'>Text Guidelines</a> for how to add translation notes.</p>`;
 
-function Index() {
-  return (
-    <>
-      <Header />
-      <Main />
-    </>
-  );
-}
-
-class Main extends React.Component {
+export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.convertText = convertText.bind(this);
@@ -197,11 +187,11 @@ class DetailArea extends React.Component {
   render() {
     const inputs = Object.keys(this.props.details).map((key) =>
       <DetailRow key={key}
-      name={key}
-      label={this.props.details[key][0]}
-      placeholder={this.props.details[key][1]}
-      value={this.props.details[key][2]}
-      onDetailChange={this.props.onDetailChange}
+        name={key}
+        label={this.props.details[key][0]}
+        placeholder={this.props.details[key][1]}
+        value={this.props.details[key][2]}
+        onDetailChange={this.props.onDetailChange}
       />
     );
     const content = (
@@ -220,10 +210,10 @@ function DetailRow(props) {
   return (
     <div className='row'>
       <label className='spacer'>{props.label}</label>
-      <input type='text' 
-      placeholder={props.placeholder} 
-      value={props.value}
-      onChange={(event) => props.onDetailChange(props.name, event.target.value)}
+      <input type='text'
+        placeholder={props.placeholder}
+        value={props.value}
+        onChange={(event) => props.onDetailChange(props.name, event.target.value)}
       />
     </div>
   )
@@ -269,6 +259,3 @@ function ActionButton(props) {
 function Output(props) {
   return <textarea spellCheck='false' id='output' defaultValue={props.value}></textarea>
 }
-
-
-export default Index;
