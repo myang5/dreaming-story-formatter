@@ -5,17 +5,17 @@
     "main.js.map": "/dreaming-story-formatter/static/js/main.d503fdcd.chunk.js.map",
     "runtime-main.js": "/dreaming-story-formatter/static/js/runtime-main.7a623ee0.js",
     "runtime-main.js.map": "/dreaming-story-formatter/static/js/runtime-main.7a623ee0.js.map",
-    "static/js/2.4aef7b81.chunk.js": "/dreaming-story-formatter/static/js/2.4aef7b81.chunk.js",
-    "static/js/2.4aef7b81.chunk.js.map": "/dreaming-story-formatter/static/js/2.4aef7b81.chunk.js.map",
+    "static/js/2.8221bcc8.chunk.js": "/dreaming-story-formatter/static/js/2.8221bcc8.chunk.js",
+    "static/js/2.8221bcc8.chunk.js.map": "/dreaming-story-formatter/static/js/2.8221bcc8.chunk.js.map",
     "index.html": "/dreaming-story-formatter/index.html",
-    "precache-manifest.02a54f4d27896b06621d38d397264cb2.js": "/dreaming-story-formatter/precache-manifest.02a54f4d27896b06621d38d397264cb2.js",
+    "precache-manifest.d2ca48d9c691b4b764b19f1e023fb8c4.js": "/dreaming-story-formatter/precache-manifest.d2ca48d9c691b4b764b19f1e023fb8c4.js",
     "service-worker.js": "/dreaming-story-formatter/service-worker.js",
     "static/css/main.8acf21c7.chunk.css.map": "/dreaming-story-formatter/static/css/main.8acf21c7.chunk.css.map",
-    "static/js/2.4aef7b81.chunk.js.LICENSE.txt": "/dreaming-story-formatter/static/js/2.4aef7b81.chunk.js.LICENSE.txt"
+    "static/js/2.8221bcc8.chunk.js.LICENSE.txt": "/dreaming-story-formatter/static/js/2.8221bcc8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7a623ee0.js",
-    "static/js/2.4aef7b81.chunk.js",
+    "static/js/2.8221bcc8.chunk.js",
     "static/css/main.8acf21c7.chunk.css",
     "static/js/main.d503fdcd.chunk.js"
   ]
