@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "55d617a150d9c954aa8a8303aca17838",
+    "revision": "54ac54e1c97eaee8eac5b027e4c9581a",
     "url": "/dreaming-story-formatter/index.html"
   },
   {
-    "revision": "65bc99978317e79ec6dc",
+    "revision": "d60788625565af811613",
     "url": "/dreaming-story-formatter/static/css/main.33a22ea4.chunk.css"
   },
   {
-    "revision": "45d0d4e85e25c62cc5dd",
-    "url": "/dreaming-story-formatter/static/js/2.70d2ba00.chunk.js"
+    "revision": "e50c2d8f854bbf79e127",
+    "url": "/dreaming-story-formatter/static/js/2.b113f711.chunk.js"
   },
   {
     "revision": "adc13e8a7c2f5e6311292ae5afc371c4",
-    "url": "/dreaming-story-formatter/static/js/2.70d2ba00.chunk.js.LICENSE.txt"
+    "url": "/dreaming-story-formatter/static/js/2.b113f711.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "65bc99978317e79ec6dc",
-    "url": "/dreaming-story-formatter/static/js/main.9c05f899.chunk.js"
+    "revision": "d60788625565af811613",
+    "url": "/dreaming-story-formatter/static/js/main.0b04ccf8.chunk.js"
   },
   {
     "revision": "3ce9fa3dd6200ddce449",
