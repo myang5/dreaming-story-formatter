@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "394af5ba5ec457bb6c9a2201adac2925",
+    "revision": "ec3f30f57379c126fb81120116b1d9c6",
     "url": "/dreaming-story-formatter/index.html"
   },
   {
@@ -8,12 +8,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dreaming-story-formatter/static/css/main.8acf21c7.chunk.css"
   },
   {
-    "revision": "25f30b37c0403ffdc755",
-    "url": "/dreaming-story-formatter/static/js/2.8221bcc8.chunk.js"
+    "revision": "827916697060a98c6be2",
+    "url": "/dreaming-story-formatter/static/js/2.5e17850d.chunk.js"
   },
   {
     "revision": "e1c6bd958ddb3202f36bacfb60fcb6bb",
-    "url": "/dreaming-story-formatter/static/js/2.8221bcc8.chunk.js.LICENSE.txt"
+    "url": "/dreaming-story-formatter/static/js/2.5e17850d.chunk.js.LICENSE.txt"
   },
   {
     "revision": "d75de29d16f2a3f6e080",
