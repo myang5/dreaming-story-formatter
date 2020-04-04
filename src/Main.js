@@ -44,18 +44,18 @@ class Main extends React.Component {
     this.convertText = convertText.bind(this);
     this.onDetailChange = this.onDetailChange.bind(this);
     this.state = {
-      input: inputTest,
+      input: inputDefault,
       details: { //label, placeholder, value
-        title: ['Title', '', 'Title'],
-        image: ['Header Image', '', 'Image.png'],
-        source: ['Source Story', '', 'source'],
-        tlName: ['Translator', '', 'Name'],
-        tlCredit: ['Translator Credit', '', 'http:/twitter.com'],
-        chapter: ['Chapter', '', '1'],
-        prev: ['Previous Chapter Link', '(optional)', 'prev'],
-        next: ['Next Chapter Link', '(optional)', 'next'],
+        title: ['Title', '', ''],
+        image: ['Header Image', '', ''],
+        source: ['Source Story', '', ''],
+        tlName: ['Translator', '', ''],
+        tlCredit: ['Translator Credit', '', ''],
+        chapter: ['Chapter', '', ''],
+        prev: ['Previous Chapter Link', '(optional)', ''],
+        next: ['Next Chapter Link', '(optional)', ''],
       },
-      tlNotes: notesTest,
+      tlNotes: notesDefault,
       output: '',
     }
     this.inputEditor = (

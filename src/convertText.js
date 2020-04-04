@@ -153,27 +153,6 @@ function convertText() {
   this.setState({ output: output });
 }
 
-//helper function for convertText
-function getValues() {
-  const values = {}
-  values.location = document.querySelector('#location').value.trim();
-  const select = document.querySelector('#author');
-  values.author = select.options[select.selectedIndex].text;
-  values.translator = document.querySelector('#translator').value.trim();
-  values.tlLink = document.querySelector('#tlLink').value.trim();
-  if (values.tlLink === '') { //if TL credit is to a wiki user
-    values.translator = `[User:${values.translator}|${values.translator}]`;
-  }
-  else { //if TL credit is to an external wiki user
-    values.translator = `${values.tlLink} ${values.translator}`;
-  }
-  values.writerCol = '#' + document.querySelector('input[name=writerCol]').value;
-  values.locationCol = '#' + document.querySelector("input[name=locationCol]").value;
-  values.bottomCol = '#' + document.querySelector('input[name=bottomCol]').value;
-  values.textCol = '#' + document.querySelector('input[name=textCol]').value;
-  return values;
-}
-
 //helper function to check if the line is a file
 //params: line - a String
 //returns a boolean value representing if the string is a file name
