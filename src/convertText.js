@@ -106,17 +106,17 @@ function convertText() {
         //console.log('image file');
         output += imageCode.replace('VALUE', formatFileName(line));
         currentName = ''; //since its new section
-
       }
       else { //if dialogue line or header
-        let firstWord = line.split(" ")[0];
-        if (!firstWord.includes(":")) { //if no colon --> continuing dialogue line
+        let key = line.slice(0, line.indexOf(':')).split(' ');
+        //console.log(key);
+        if (key.length > 3) { //cases where 1 (Takaomi) or 2 (Takaomi & Senri) are speaking but there is a colon in the dialogue
           //console.log('no colon, continue dialogue');
-          output += line + "\n\n";
+          output += line + '\n\n';
         }
         else {
-          //console.log('has colon...')
-          firstWord = firstWord.slice(0, -1); //remove colon
+          //console.log('key found...')
+          let firstWord = key[0]
           if (firstWord.toUpperCase() === 'LOCATION') { //if heading
             //console.log('new LOCATION');
             output += locationCode.replace('VALUE', getTextAfterColon(line));
@@ -128,17 +128,17 @@ function convertText() {
             currentName = ''; //since its new section
           }
           else { //if character is speaking
-            //console.log('character speaking... ' + firstWord);
-            if (firstWord != currentName) { //if new character is speaking
+            //console.log('character speaking... ' + key);
+            key = key.join(' ');
+            if (key != currentName) { //if new character is speaking
               //console.log('new character detected')
               //add dialogueRender code to output
-              let code = namesOfficial.includes(firstWord.toUpperCase()) ? charaCode : npcCode;
-              output += code.replace('VALUE', capitalizeFirstLetter(firstWord));
+              let code = namesOfficial.includes(key.toUpperCase()) ? charaCode : npcCode;
+              output += code.replace('VALUE', capitalizeFirstLetter(key));
               //update currentName
-              currentName = firstWord;
+              currentName = key;
             }
-            line = getTextAfterColon(line); //get chara's spoken line
-            output += line + "\n\n";
+            output += getTextAfterColon(line) + '\n\n';
           }
         }
       }
@@ -246,7 +246,7 @@ function formatTlNotes(tlNotes, title) {
       let newTlCode = tlCode.replace(/NUM/g, i + 1);
       output += newTlCode.replace('TEXT', notes[i]);
     }
-    output = output.replace(/<br \/>$/m, "\n");
+    output = output.replace(/<br \/>$/m, '\n');
     return output;
   }
   else return ''
