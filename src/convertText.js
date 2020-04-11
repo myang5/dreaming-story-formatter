@@ -48,111 +48,6 @@ function getTextAfterColon(line) {
   return line.slice(line.indexOf(':') + 1).trim();
 }
 
-function convertText() {
-
-  //const values = getValues(); //get user input from all the tabs
-
-  //format wiki code with user input
-  const headerCode =
-    `{{Story Header
-|Title=${this.state.details.title[2]}        
-|Image=${this.state.details.image[2]}        
-|Source=${this.state.details.source[2]}        
-|TranslatorURL=${this.state.details.tlCredit[2]} 
-|TranslatorName=${this.state.details.tlName[2]}
-|Chapter=${this.state.details.chapter[2]}       
-
-`;
-  const charaCode =
-    `}}{{VALUE|Dialogue=`;
-
-  const npcCode =
-    `}}{{NPC
-|Name=VALUE
-|Dialogue=`
-
-  const imageCode =
-    `}}{{Story Image|Image=VALUE
-
-`;
-
-  const locationCode =
-    `}}{{Location|Location=VALUE
-
-`;
-
-  const chapterCode =
-    `}}{{Chapter Divider|Chapter=VALUE
-      
-`;
-
-  const footerCode =
-    `{{Story Footer
-|Prev=${this.state.details.prev[2]}          
-|Next=${this.state.details.next[2]}          
-}}`
-
-  let inputDom = formatStyling(convertToDom(this.state.input));
-  let input = getTextFromDom(inputDom);
-  let output = headerCode;
-
-  let currentName = ''; //needed for case where dialogue has name on every line
-  input.forEach(function (line) {
-    if (line != '') { //ignore empty lines
-      //console.log('analyzing line: ' + line);
-      if (isFileName(line)) {
-        //console.log('isFileName: true...');
-        //if CG or scene change image file
-        //console.log('image file');
-        output += imageCode.replace('VALUE', formatFileName(line));
-        currentName = ''; //since its new section
-      }
-      else { //if dialogue line or header
-        let key = line.slice(0, line.indexOf(':')).split(' ');
-        //console.log(key);
-        if (key.length > 3) { //cases where 1 (Takaomi) or 2 (Takaomi & Senri) are speaking but there is a colon in the dialogue
-          //console.log('no colon, continue dialogue');
-          output += line + '\n\n';
-        }
-        else {
-          //console.log('key found...')
-          let firstWord = key[0]
-          if (firstWord.toUpperCase() === 'LOCATION') { //if heading
-            //console.log('new LOCATION');
-            output += locationCode.replace('VALUE', getTextAfterColon(line));
-            currentName = ''; //since its new section
-          }
-          else if (firstWord.toUpperCase() === 'CHAPTER') { //if heading
-            //console.log('new CHAPTER');
-            output += chapterCode.replace('VALUE', getTextAfterColon(line));
-            currentName = ''; //since its new section
-          }
-          else { //if character is speaking
-            //console.log('character speaking... ' + key);
-            key = key.join(' ');
-            if (key != currentName) { //if new character is speaking
-              //console.log('new character detected')
-              //add dialogueRender code to output
-              let code = namesOfficial.includes(key.toUpperCase()) ? charaCode : npcCode;
-              output += code.replace('VALUE', capitalizeFirstLetter(key));
-              //update currentName
-              currentName = key;
-            }
-            output += getTextAfterColon(line) + '\n\n';
-          }
-        }
-      }
-    }
-  });
-
-  output += '}}\n';
-  let title = getChapTitle(this.state.tlNotes);
-  output = formatTlMarker(output, title);
-  output += formatTlNotes(this.state.tlNotes, title);
-  output += footerCode;
-  this.setState({ output: output });
-}
-
 //helper function to check if the line is a file
 //params: line - a String
 //returns a boolean value representing if the string is a file name
@@ -194,6 +89,124 @@ function formatStyling(editorDom) {
     link.replaceWith(`[${link.href} ${link.innerText}]`);
   });
   return editorDom;
+}
+
+function convertText() {
+
+  //const values = getValues(); //get user input from all the tabs
+
+  //format wiki code with user input
+  const headerCode =
+    `{{Story Header
+|Title=${this.state.details.title[2]}        
+|Image=${this.state.details.image[2]}        
+|Source=${this.state.details.source[2]}        
+|TranslatorURL=${this.state.details.tlCredit[2]} 
+|TranslatorName=${this.state.details.tlName[2]}
+|Chapter=${this.state.details.chapter[2]}       
+
+`;
+  const charaCode =
+    `}}{{VALUE|Dialogue=`;
+
+  const npcCode =
+    `}}{{NPC
+|Name=VALUE
+|Dialogue=`;
+
+  const unknownCode =
+    `}}{{NPC
+|Name=???
+|RealName=VALUE
+|Dialogue=`
+
+  const imageCode =
+    `}}{{Story Image|Image=VALUE
+
+`;
+
+  const locationCode =
+    `}}{{Location|Location=VALUE
+
+`;
+
+  const chapterCode =
+    `}}{{Chapter Divider|Chapter=VALUE
+      
+`;
+
+  const footerCode =
+    `{{Story Footer
+|Prev=${this.state.details.prev[2]}          
+|Next=${this.state.details.next[2]}          
+}}`
+
+  let inputDom = formatStyling(convertToDom(this.state.input));
+  let input = getTextFromDom(inputDom);
+  let output = headerCode;
+
+  let currentName = ''; //needed for case where dialogue has name on every line
+  input.forEach(function (line) {
+    if (line != '') { //ignore empty lines
+      //console.log('analyzing line: ' + line);
+      if (isFileName(line)) {
+        //console.log('isFileName: true...');
+        //if CG or scene change image file
+        //console.log('image file');
+        output += imageCode.replace('VALUE', formatFileName(line));
+        currentName = ''; //since its new section
+      }
+      else { //if dialogue line or header
+        let key = line.slice(0, line.indexOf(':')).split(' ');
+        //console.log(key);
+        if (key.length > 3 || !line.includes(':')){ //cases where 1 (Takaomi) or 2 (Takaomi & Senri) are speaking but there is a colon in the dialogue
+          //console.log('no colon, continue dialogue');
+          output += line + '\n\n';
+        }
+        else {
+          //console.log('key found...')
+          let firstWord = key[0]
+          if (firstWord.toUpperCase() === 'LOCATION') { //if heading
+            //console.log('new LOCATION');
+            output += locationCode.replace('VALUE', getTextAfterColon(line));
+            currentName = ''; //since its new section
+          }
+          else if (firstWord.toUpperCase() === 'CHAPTER') { //if heading
+            //console.log('new CHAPTER');
+            output += chapterCode.replace('VALUE', getTextAfterColon(line));
+            currentName = ''; //since its new section
+          }
+          else { //if character is speaking
+            //console.log('character speaking... ' + key);
+            key = key.join(' ');
+            if (key != currentName) { //if new character is speaking
+              //console.log('new character detected')
+              //add dialogueRender code to output
+              if (key.includes('???')) {
+                key = key.replace('???', '').trim();
+                let code = unknownCode;
+                output += code.replace('VALUE', (namesOfficial.includes(key.toUpperCase()) ? key : 'NPC'));
+              }
+              else {
+                let code = namesOfficial.includes(key.toUpperCase()) ? charaCode : npcCode;
+                output += code.replace('VALUE', capitalizeFirstLetter(key));
+              }
+              //update currentName
+              currentName = key;
+            }
+            output += getTextAfterColon(line) + '\n\n';
+          }
+        }
+      }
+    }
+  });
+
+  output += '}}\n';
+  let title = getChapTitle(this.state.tlNotes);
+  output = formatTlMarker(output, title);
+  output += formatTlNotes(this.state.tlNotes, title);
+  output += footerCode;
+  this.setState({ output: output });
 }
 
 //helper function to get and format chapter title from tl notes
