@@ -1,4 +1,5 @@
 const namesOfficial = [
+  'NARRATION',
   'YUMA',
   'YANAGI',
   'TOUJI',
